@@ -12,5 +12,5 @@ export const UserAvatar = () => {
              {user?.lastName?.charAt(0)}   
             </AvatarFallback>
         </Avatar>
-    )
-}
+    );
+};
