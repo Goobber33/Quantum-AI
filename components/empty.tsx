@@ -16,7 +16,9 @@ export const Empty =  ({
                 src="/empty.png"
                  />
             </div>
-        
+            <p className="text-muted-foreground text-sm text-center">
+                {label}
+            </p>
         </div>
     );
 }

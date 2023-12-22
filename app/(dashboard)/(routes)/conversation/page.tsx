@@ -3,7 +3,7 @@
 import axios from "axios";
 import * as z from "zod";
 import { Heading } from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { Loader, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -96,8 +96,13 @@ const ConversationPage = () => {
           </Form>
         </div>
         <div className="space-y-4 mt-4">
+          {isLoading && (
+            <div className="p-8 rounded-lg w-full flex items-cener jusify-center bg-muted">
+              <Loader />
+            </div>
+          )}
                 {messages.length === 0 && !isLoading && (
-                 <Empty />
+                 <Empty label="No conversation started."/>
                 )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
