@@ -3,7 +3,7 @@
 import axios from "axios";
 import * as z from "zod";
 import { Heading } from "@/components/heading";
-import { Loader, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import { Empty } from "@/components/empty";
+import { Loader } from "@/components/loader";
+import { cn } from "@/lib/utils";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -97,7 +99,7 @@ const ConversationPage = () => {
         </div>
         <div className="space-y-4 mt-4">
           {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-cener jusify-center bg-muted">
+            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
               <Loader />
             </div>
           )}
@@ -106,7 +108,13 @@ const ConversationPage = () => {
                 )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <div key={message.content}>
+              <div
+               key={message.content}
+               className={cn(
+                "p-8 w-full flex -tems-start gap-x-8 rounded-lg",
+                message.role === "user" ? "bg-white border border-black/10" : "bg-muted"
+                )}
+               >
                 {message.content}
               </div>
             ))}
