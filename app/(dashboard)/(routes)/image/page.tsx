@@ -16,8 +16,7 @@ import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
-import { UserAvatar } from "@/components/user-avatar";
-import { BotAvatar } from "@/components/bot-avatar";
+import { Select } from "@/components/ui/select";
 
 const ImagePage = () => {
   const router = useRouter();
@@ -26,6 +25,8 @@ const ImagePage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: "",
+      amount: "1",
+      resolution : "512x512",
     }
   });
 
@@ -33,14 +34,20 @@ const ImagePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await axios.post("/api/conversation");
+      setImages([]);
 
-        form.reset();
-      } catch (error: any) {
-        console.log(error);
-      } finally {
-        router.refresh();
-      }
+      const response = await axios.post("/api/image", values);
+
+      const urls = response.data.map((image: { url: string }) => image.url);
+
+      setImages(urls);
+
+      form.reset();
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      router.refresh();
+    }
   };
 
   return (
@@ -67,13 +74,24 @@ const ImagePage = () => {
                       <Input
                         className="border-0 outline-none focuse-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="Start typing..."
+                        placeholder="A picture of a horse in swiss alps"
                         {...field}
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
+              <FormField
+              control={form.control}
+              name="amount"
+              render={({ field }) => (
+                <FormItem className="col-span-12 lg:col-span-2">
+                  <Select>
+
+                  </Select>
+                </FormItem>
+              )}
+               />
               <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>
                 Generate
               </Button>
