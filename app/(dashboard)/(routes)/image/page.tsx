@@ -176,7 +176,11 @@ const ImagePage = () => {
                   />
                 </div>
                 <CardFooter className="p-2">
-                  <Button variant="secondary" className="w-full">
+                  <Button 
+                  onClick={() => window.open(src)}
+                  variant="secondary" 
+                  className="w-full"
+                  >
                     <Download className="h-4 w-4 mr-2" />
                     Download
                   </Button>
