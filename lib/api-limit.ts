@@ -30,7 +30,7 @@ export const increaseApiLimit = async () => {
     }
 }
 
-export const CheckApiLimit = async () => {
+export const checkApiLimit = async () => {
     const { userId } = auth();
 
     if (!userId) {
