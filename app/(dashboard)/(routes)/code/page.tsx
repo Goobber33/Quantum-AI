@@ -32,36 +32,21 @@ const CodePage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const maxRetries = 3;
-  let attempts = 0;
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const userMessage: ChatCompletionRequestMessage = {
-      role: "user",
-      content: values.prompt,
-    };
-    const newMessages = [...messages, userMessage];
-
-    while (attempts < maxRetries) {
-      try {
-        const response = await axios.post("/api/code", {
-          messages: newMessages,
-        });
-        setMessages(current => [...current, userMessage, response.data]);
-        form.reset();
-        break;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 429) {
-          attempts++;
-          console.log(`Retry attempt ${attempts}`);
-          await new Promise(resolve => setTimeout(resolve, 5000));
-        } else {
-          console.log(error);
-          break;
-        }
-      }
+    try {
+      const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const newMessages = [...messages, userMessage];
+      
+      const response = await axios.post('/api/code', { messages: newMessages });
+      setMessages((current) => [...current, userMessage, response.data]);
+      
+      form.reset();
+    } catch (error: any) {
+      console.error(error);
+    } finally {
+      router.refresh();
     }
-  };
+  }
 
   return (
     <div>
