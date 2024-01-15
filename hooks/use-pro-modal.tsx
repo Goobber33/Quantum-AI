@@ -2,12 +2,12 @@ import { create } from "zustand";
 
 interface useProModalState {
     isOpen: boolean;
-    onOPen: () => void;
+    onOpen: () => void;
     onClose: () => void;
 }
 
 export const useProModal = create<useProModalState>((set) => ({
-    isOpen: true,
-    onOPen: () => set({ isOpen: true }),
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
 }));

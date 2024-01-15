@@ -18,8 +18,10 @@ import { Loader } from "@/components/loader";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const ImagePage = () => {
+  const proModal = useProModal();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,7 +47,9 @@ const ImagePage = () => {
 
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
@@ -175,10 +179,10 @@ const ImagePage = () => {
                   />
                 </div>
                 <CardFooter className="p-2">
-                  <Button 
-                  onClick={() => window.open(src)}
-                  variant="secondary" 
-                  className="w-full"
+                  <Button
+                    onClick={() => window.open(src)}
+                    variant="secondary"
+                    className="w-full"
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Download
