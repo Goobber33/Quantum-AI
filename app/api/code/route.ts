@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai"
 
 import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
+import { checkSubscription } from '@/lib/subscription';
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -36,8 +37,9 @@ export async function POST(
         }
 
         const freeTrial = await checkApiLimit();
+        const isPro = await checkSubscription();
 
-        if (!freeTrial) {
+        if (!freeTrial && !isPro) {
             return new NextResponse("Free trial limit reached", { status: 403 });
         }
 
@@ -46,12 +48,14 @@ export async function POST(
             messages: [instructionMessage, ...messages]
         });
 
-        await increaseApiLimit();
+        if (!isPro) {
+            await increaseApiLimit();
+        }
 
         return NextResponse.json(response.data.choices[0].message);
 
-    } catch(error) {
-    console.log("[CODE_ERROR]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    } catch (error) {
+        console.log("[CODE_ERROR]", error);
+        return new NextResponse("Internal error", { status: 500 });
     }
 }
