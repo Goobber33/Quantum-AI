@@ -5,6 +5,7 @@ const LandingPage = () => {
         <div>
             <div className="h-full">
                 <LandingNavbar />
+                <LandingHero />
             </div>
         </div>
     );
