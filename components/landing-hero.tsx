@@ -1,7 +1,9 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 import TypewriterComponent from "typewriter-effect";
+import { Button } from "@/components/ui/button";
 
 export const LandingHero = () => {
     const { isSignedIn } = useAuth();
@@ -27,6 +29,19 @@ export const LandingHero = () => {
                         }}
                     />
                 </div>
+            </div>
+            <div className="text-sm md:text-xl font-light text-zinc-400">
+                Create content using AI
+            </div>
+            <div>
+                <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
+                    <Button variant={"premium"} className="md:text-lg mp-4 md:p-6 rounded-full font-semibold">
+                        Start Generating for Free
+                    </Button>
+                </Link>
+            </div>
+            <div className="text-zinc-400 text-xs md:text-sm font-normal">
+                No credit card required
             </div>
         </div>
     );
