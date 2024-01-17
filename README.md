@@ -16,13 +16,13 @@ Quantum IQ is a state-of-the-art SaaS AI platform designed to streamline and enh
 
 ## Technologies Used 💻
 
-- Next.js
-- React
-- Node.js
-- Tailwind CSS
-- Prisma
-- Stripe
-- Lucide Icons
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+- ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+- ![Node.js](https://img.shields.io/static/v1?style=for-the-badge&message=Node.js&color=339933&logo=Node.js&logoColor=FFFFFF&label=)
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+- ![Stripe](https://img.shields.io/badge/Stripe-008CDD?style=for-the-badge&logo=Stripe&logoColor=white)
+- ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-4A4A55?style=for-the-badge&logo=Lucide&logoColor=white)
 
 ## Getting Started 🚀
 
