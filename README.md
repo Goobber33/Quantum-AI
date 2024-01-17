@@ -2,7 +2,7 @@
 
 ## Watch the Demo Video 🎥
 
-<a href="https://www.youtube.com/watch?v=nOwf1Cwz32I" target="_blank">
+<a href="https://www.youtube.com/watch?v=nOwf1Cwz32I" >
     <img src="/public/youtube.png" alt="Watch the video" width="300"/>
 </a>
 
