@@ -91,7 +91,7 @@ Get AI-driven code suggestions in the Code Generation module.
 
 ### Settings ⚙️
 
-Adjust preferences and configurations in the Settings module.
+Add or manage your subscription with Quantum IQ
 
 ## Contributing 🤝
 
