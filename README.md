@@ -2,7 +2,7 @@
 
 ## Watch the Demo Video 🎥
 
-[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=nOwf1Cwz32I)
+[![Watch the video](youtube.png)](https://www.youtube.com/watch?v=nOwf1Cwz32I)
 
 ## Overview 📖
 
