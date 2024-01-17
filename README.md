@@ -3,7 +3,7 @@
 ## Watch the Demo Video 🎥
 
 <a href="https://www.youtube.com/watch?v=nOwf1Cwz32I" >
-    <img src="/public/youtube.png" alt="Watch the video" width="300"/>
+    <img src="/public/youtube.png" alt="Watch the video" width="600"/>
 </a>
 
 ## Overview 📖
