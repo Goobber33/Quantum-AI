@@ -1,5 +1,9 @@
 # Quantum IQ 🌐
 
+## Watch the Demo Video 🎥
+
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=nOwf1Cwz32I)
+
 ## Overview 📖
 
 Quantum IQ is a state-of-the-art SaaS AI platform designed to streamline and enhance a variety of AI functionalities. This platform integrates features such as conversation analysis, image and video generation, music composition, and code generation, offering a comprehensive toolkit for developers and AI enthusiasts.
