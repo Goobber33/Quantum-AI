@@ -1,5 +1,9 @@
 # Quantum IQ 🌐
 
+## Live Site 🌍
+
+Experience Quantum IQ in action: [Quantum AI Live Site](https://quantum-ai-2gzy.vercel.app/)
+
 ## Watch the Demo Video 🎥
 
 <a href="https://www.youtube.com/watch?v=nOwf1Cwz32I" >
