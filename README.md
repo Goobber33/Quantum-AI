@@ -93,10 +93,6 @@ Get AI-driven code suggestions in the Code Generation module.
 
 Add or manage your subscription with Quantum IQ
 
-## Contributing 🤝
-
-Contributions to Quantum IQ are welcome, including documentation improvements, bug fixes, or new features. Please read `CONTRIBUTING.md` for contribution guidelines.
-
 ## License 📄
 
 This project is licensed under the [MIT License](LICENSE).
