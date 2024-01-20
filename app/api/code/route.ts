@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai"
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
 import { checkSubscription } from '@/lib/subscription';
@@ -14,11 +14,28 @@ const openai = new OpenAIApi(configuration);
 const instructionMessage: ChatCompletionRequestMessage = {
     role: "system",
     content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
+};
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+            reject(new Error("Request timed out"));
+        }, ms);
+
+        promise.then(
+            (response: T) => {
+                clearTimeout(timer);
+                resolve(response);
+            },
+            (error: any) => {
+                clearTimeout(timer);
+                reject(error);
+            }
+        );
+    });
 }
 
-export async function POST(
-    request: Request,
-) {
+export async function POST(request: Request) {
     try {
         const { userId } = auth();
         const body = await request.json();
@@ -43,10 +60,12 @@ export async function POST(
             return new NextResponse("Free trial limit reached", { status: 403 });
         }
 
-        const response = await openai.createChatCompletion({
+        const openAiPromise = openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [instructionMessage, ...messages]
         });
+
+        const response = await withTimeout(openAiPromise, 10000); // 10 seconds timeout
 
         if (!isPro) {
             await increaseApiLimit();
