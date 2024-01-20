@@ -14,11 +14,35 @@ const openai = new OpenAIApi(configuration);
 const instructionMessage: ChatCompletionRequestMessage = {
     role: "system",
     content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
+};
+
+async function openAiCallWithRetry(
+    apiCall: () => Promise<any>, // Replace 'any' with a more specific type if known
+    maxAttempts: number = 3,
+    delay: number = 1000
+): Promise<any> { // Replace 'any' with the specific type of the expected response
+    let attempts = 0;
+    let error: Error | null = null;
+
+    while (attempts < maxAttempts) {
+        try {
+            return await apiCall();
+        } catch (e) {
+            if (e instanceof Error) {
+                error = e;
+            }
+            attempts++;
+            if (attempts >= maxAttempts) break;
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2;
+        }
+    }
+
+    throw error;
 }
 
-export async function POST(
-    request: Request,
-) {
+
+export async function POST(request: Request) {
     try {
         const { userId } = auth();
         const body = await request.json();
@@ -43,10 +67,12 @@ export async function POST(
             return new NextResponse("Free trial limit reached", { status: 403 });
         }
 
-        const response = await openai.createChatCompletion({
+        const apiCall = () => openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [instructionMessage, ...messages]
         });
+
+        const response = await openAiCallWithRetry(apiCall);
 
         if (!isPro) {
             await increaseApiLimit();
