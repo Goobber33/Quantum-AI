@@ -17,10 +17,10 @@ const instructionMessage: ChatCompletionRequestMessage = {
 };
 
 async function openAiCallWithRetry(
-    apiCall: () => Promise<any>, // Replace 'any' with a more specific type if known
+    apiCall: () => Promise<any>,
     maxAttempts: number = 3,
-    delay: number = 1000
-): Promise<any> { // Replace 'any' with the specific type of the expected response
+    delay: number = 10000
+): Promise<any> {
     let attempts = 0;
     let error: Error | null = null;
 
