@@ -35,6 +35,25 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
     });
 }
 
+async function retryWithTimeout<T>(apiCall: () => Promise<T>, maxAttempts: number, delay: number, timeout: number): Promise<T> {
+    let attempts = 0;
+    let error;
+
+    while (attempts < maxAttempts) {
+        try {
+            return await withTimeout(apiCall(), timeout);
+        } catch (e) {
+            error = e;
+            attempts++;
+            if (attempts >= maxAttempts) break;
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2; // Exponential backoff
+        }
+    }
+
+    throw error;
+}
+
 export async function POST(request: Request) {
     try {
         const { userId } = auth();
@@ -60,12 +79,12 @@ export async function POST(request: Request) {
             return new NextResponse("Free trial limit reached", { status: 403 });
         }
 
-        const openAiPromise = openai.createChatCompletion({
+        const apiCall = () => openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [instructionMessage, ...messages]
         });
 
-        const response = await withTimeout(openAiPromise, 50000); // 10 seconds timeout
+        const response = await retryWithTimeout(apiCall, 3, 1000, 5000); // 3 retries, 1-second initial delay, 5-second timeout
 
         if (!isPro) {
             await increaseApiLimit();
