@@ -65,7 +65,7 @@ export async function POST(request: Request) {
             messages: [instructionMessage, ...messages]
         });
 
-        const response = await withTimeout(openAiPromise, 10000); // 10 seconds timeout
+        const response = await withTimeout(openAiPromise, 50000); // 10 seconds timeout
 
         if (!isPro) {
             await increaseApiLimit();
