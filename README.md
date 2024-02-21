@@ -2,7 +2,7 @@
 
 ## Live Site 🌍
 
-Experience Quantum IQ in action: [Quantum AI Live Site](https://quantum-ai-2gzy.vercel.app/)
+Experience Quantum IQ in action: [Quantum AI Live Site](https://quantum-ai-kappa.vercel.app/)
 
 ## Watch the Demo Video 🎥
 
